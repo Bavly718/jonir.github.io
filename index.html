@@ -30,25 +30,9 @@
         }
 
         function drawFlower(x, y) {
-            ctx.fillStyle = '#000';
+            ctx.fillStyle = '#ff1a75';
             ctx.beginPath();
             ctx.arc(x, y, 20, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = '#ffcc00';
-            ctx.beginPath();
-            ctx.arc(x, y, 10, 0, Math.PI * 2);
-            ctx.fill();
-            drawLeaves(x, y + 50);
-        }
-        }
-
-        function drawLeaves(x, y) {
-            ctx.fillStyle = '#006600';
-            ctx.beginPath();
-            ctx.ellipse(x - 15, y, 20, 10, Math.PI / 4, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.ellipse(x + 15, y, 20, 10, -Math.PI / 4, 0, Math.PI * 2);
             ctx.fill();
         }
 
