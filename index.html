@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Animation</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #ffe6e6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { position: absolute; top: 0; left: 0; }
+        h1 { color: #ff1a75; font-family: Arial, sans-serif; font-size: 4em; opacity: 0; }
+    </style>
+</head>
+<body>
+    <canvas id="flowerCanvas"></canvas>
+    <h1 id="message">Happy Valentine's Day</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        const canvas = document.getElementById('flowerCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function drawStem(x, y, height) {
+            ctx.strokeStyle = '#006600';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y - height);
+            ctx.stroke();
+        }
+
+        function drawFlower(x, y) {
+            ctx.fillStyle = '#ff1a75';
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function animateFlowers() {
+            let flowers = [];
+            for (let i = 0; i < 5; i++) {
+                let x = (i + 1) * canvas.width / 6;
+                let y = canvas.height - 100;
+                flowers.push({ x, y, height: 0 });
+            }
+
+            anime({
+                targets: flowers,
+                height: 200,
+                duration: 2000,
+                easing: 'easeOutQuad',
+                update: function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    flowers.forEach(f => {
+                        drawStem(f.x, f.y, f.height);
+                        if (f.height >= 200) drawFlower(f.x, f.y - 200);
+                    });
+                },
+                complete: function() {
+                    anime({
+                        targets: '#message',
+                        opacity: 1,
+                        duration: 2000,
+                        easing: 'easeInOutQuad'
+                    });
+                }
+            });
+        }
+
+        animateFlowers();
+    </script>
+</body>
+</html>
